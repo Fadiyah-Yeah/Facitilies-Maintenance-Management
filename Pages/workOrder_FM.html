@@ -1,0 +1,766 @@
+<!doctype html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>AssetOS - Pembuatan Work Order</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      /* Custom Scrollbar for industrial feel */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 10px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+    </style>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary-container": "#131b2e",
+              "on-primary-fixed-variant": "#3f465c",
+              secondary: "#006c49",
+              "on-surface-variant": "#45464d",
+              "on-error-container": "#93000a",
+              "on-primary-fixed": "#131b2e",
+              "on-secondary-fixed": "#002113",
+              "surface-tint": "#565e74",
+              "error-container": "#ffdad6",
+              "inverse-primary": "#bec6e0",
+              "surface-container-high": "#dce9ff",
+              "tertiary-fixed-dim": "#dec29a",
+              "secondary-fixed": "#6ffbbe",
+              "tertiary-container": "#271901",
+              "on-tertiary-container": "#98805d",
+              surface: "#f8f9ff",
+              error: "#ba1a1a",
+              "surface-dim": "#cbdbf5",
+              "outline-variant": "#c6c6cd",
+              "inverse-on-surface": "#eaf1ff",
+              "on-primary": "#ffffff",
+              "secondary-container": "#6cf8bb",
+              "inverse-surface": "#213145",
+              outline: "#76777d",
+              "on-secondary-fixed-variant": "#005236",
+              "surface-container-highest": "#d3e4fe",
+              "on-error": "#ffffff",
+              "surface-variant": "#d3e4fe",
+              "on-tertiary": "#ffffff",
+              "primary-fixed-dim": "#bec6e0",
+              "secondary-fixed-dim": "#4edea3",
+              "surface-container": "#e5eeff",
+              "tertiary-fixed": "#fcdeb5",
+              "on-tertiary-fixed": "#271901",
+              primary: "#000000",
+              "on-background": "#0b1c30",
+              "on-secondary-container": "#00714d",
+              "surface-container-low": "#eff4ff",
+              "on-surface": "#0b1c30",
+              "on-tertiary-fixed-variant": "#574425",
+              background: "#f8f9ff",
+              "on-secondary": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "on-primary-container": "#7c839b",
+              "surface-bright": "#f8f9ff",
+              "primary-fixed": "#dae2fd",
+              tertiary: "#000000",
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+            spacing: {
+              gutter: "16px",
+              "touch-target": "44px",
+              "container-margin": "24px",
+              "sidebar-width": "260px",
+              base: "4px",
+            },
+            fontFamily: {
+              "body-sm": ["Inter"],
+              "data-mono": ["JetBrains Mono"],
+              "headline-lg": ["Inter"],
+              display: ["Inter"],
+              "headline-lg-mobile": ["Inter"],
+              "title-md": ["Inter"],
+              "body-base": ["Inter"],
+              "label-caps": ["Inter"],
+            },
+            fontSize: {
+              "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }],
+              "data-mono": ["13px", { lineHeight: "16px", fontWeight: "500" }],
+              "headline-lg": [
+                "24px",
+                {
+                  lineHeight: "32px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "600",
+                },
+              ],
+              display: [
+                "36px",
+                {
+                  lineHeight: "44px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              "headline-lg-mobile": [
+                "20px",
+                { lineHeight: "28px", fontWeight: "600" },
+              ],
+              "title-md": ["18px", { lineHeight: "26px", fontWeight: "600" }],
+              "body-base": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+              "label-caps": [
+                "12px",
+                {
+                  lineHeight: "16px",
+                  letterSpacing: "0.05em",
+                  fontWeight: "600",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body class="bg-surface text-on-surface font-body-base overflow-hidden">
+    <!-- Desktop Sidebar Shell -->
+    <aside
+      class="fixed left-0 top-0 h-full w-sidebar-width bg-surface-container-low border-r border-outline-variant flex flex-col p-base gap-2 z-40 hidden md:flex"
+    >
+      <div class="px-4 py-6">
+        <h1 class="font-headline-lg text-headline-lg text-primary">AssetOS</h1>
+        <div
+          class="mt-4 flex items-center gap-3 px-2 py-3 bg-white/50 rounded-lg border border-outline-variant/30"
+        >
+          <div
+            class="w-8 h-8 rounded bg-primary flex items-center justify-center text-white"
+          >
+            <span class="material-symbols-outlined text-[18px]"
+              >precision_manufacturing</span
+            >
+          </div>
+          <div>
+            <p
+              class="font-label-caps text-label-caps text-on-surface uppercase tracking-wider"
+            >
+              Main Plant
+            </p>
+            <p class="text-[10px] text-on-surface-variant">Operations Dept</p>
+          </div>
+        </div>
+      </div>
+      <nav class="flex-1 px-2 space-y-1">
+        <a
+          class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-caps text-label-caps"
+          href="#"
+        >
+          <span class="material-symbols-outlined">dashboard</span> Dashboard
+        </a>
+        <a
+          class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-caps text-label-caps"
+          href="#"
+        >
+          <span class="material-symbols-outlined">precision_manufacturing</span>
+          Assets
+        </a>
+        <a
+          class="flex items-center gap-3 px-3 py-2 bg-secondary-container text-on-secondary-container transition-all rounded-lg font-label-caps text-label-caps"
+          href="#"
+        >
+          <span class="material-symbols-outlined">build</span> Work Orders
+        </a>
+        <a
+          class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-caps text-label-caps"
+          href="#"
+        >
+          <span class="material-symbols-outlined">monitoring</span> Analytics
+        </a>
+        <a
+          class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high transition-all rounded-lg font-label-caps text-label-caps"
+          href="#"
+        >
+          <span class="material-symbols-outlined">groups</span> Team
+        </a>
+      </nav>
+      <div class="px-2 pb-6 space-y-1 border-t border-outline-variant pt-4">
+        <a
+          class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-caps text-label-caps"
+          href="#"
+        >
+          <span class="material-symbols-outlined">help</span> Help
+        </a>
+        <a
+          class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-container-high rounded-lg font-label-caps text-label-caps"
+          href="#"
+        >
+          <span class="material-symbols-outlined">settings</span> Settings
+        </a>
+      </div>
+    </aside>
+    <!-- Main Content Canvas -->
+    <main class="md:ml-sidebar-width h-screen flex flex-col">
+      <!-- Top Nav Bar -->
+      <header
+        class="h-touch-target flex justify-between items-center w-full px-container-margin bg-surface border-b border-outline-variant"
+      >
+        <div class="flex items-center gap-4">
+          <button class="md:hidden text-on-surface">
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+          <div class="flex items-center gap-2">
+            <span class="text-on-surface-variant font-body-sm text-body-sm"
+              >Work Orders</span
+            >
+            <span class="material-symbols-outlined text-outline text-sm"
+              >chevron_right</span
+            >
+            <span class="font-title-md text-title-md text-primary"
+              >Create Work Order</span
+            >
+          </div>
+        </div>
+        <div class="flex items-center gap-6">
+          <div
+            class="hidden lg:flex items-center bg-surface-container-low px-3 py-1.5 rounded border border-outline-variant w-64"
+          >
+            <span class="material-symbols-outlined text-outline text-sm"
+              >search</span
+            >
+            <input
+              class="bg-transparent border-none focus:ring-0 text-body-sm font-body-sm w-full outline-none"
+              placeholder="Search orders..."
+              type="text"
+            />
+          </div>
+          <div class="flex items-center gap-4">
+            <span
+              class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-low p-2 rounded transition-colors"
+              >notifications</span
+            >
+            <span
+              class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:bg-surface-container-low p-2 rounded transition-colors"
+              >settings</span
+            >
+            <div
+              class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden border border-outline-variant"
+            >
+              <img
+                alt="User profile"
+                class="w-full h-full object-cover"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwn2JH0_mr2kbKhFBWvy4R3K8Sek3Ymn-vi51mBmhcg2cxOTrCPRE6C-dOxNOX8TTVRkdSo97CRny8OHM6KfIu7PW2e28t5RIAEGtDUW33oisLRQjwjppsabrdVb1L4S62nj3q5kCftZQs2QndpUAEr-uSqz18Wg9fZVLdGmfI-JGytD1W0jCuepuCCFy3yjci5QLprftwQTpYbzG3POPtPGIVrinqP3Wo5Pacv2K1PFxQb4C_qV_7_HOSaY9auOeDi_qlK1CX_Js"
+              />
+            </div>
+          </div>
+        </div>
+      </header>
+      <!-- Page Content Scrollable Area -->
+      <section class="flex-1 overflow-y-auto p-gutter bg-surface">
+        <div class="max-w-[1400px] mx-auto grid grid-cols-12 gap-gutter">
+          <!-- Left Column: The Form (8 cols) -->
+          <div class="col-span-12 lg:col-span-8 space-y-gutter">
+            <div
+              class="bg-white border border-outline-variant rounded-xl p-6 shadow-sm"
+            >
+              <div class="mb-8 border-b border-outline-variant/30 pb-4">
+                <h2 class="font-title-md text-title-md text-on-surface">
+                  Work Order Details
+                </h2>
+                <p class="text-body-sm text-on-surface-variant">
+                  Fill in the required information to generate and assign a new
+                  task.
+                </p>
+              </div>
+              <form class="space-y-8">
+                <!-- Linked Complaint -->
+                <div class="space-y-2">
+                  <label class="font-label-caps text-label-caps text-on-surface"
+                    >LINKED COMPLAINT / ISSUE</label
+                  >
+                  <div class="relative">
+                    <div
+                      class="flex items-center w-full p-3 border border-outline-variant rounded-lg bg-surface-container-low focus-within:border-primary focus-within:ring-2 focus-within:ring-primary/10 transition-all cursor-pointer"
+                    >
+                      <span class="material-symbols-outlined text-outline mr-3"
+                        >report_problem</span
+                      >
+                      <div class="flex-1">
+                        <p class="text-body-base font-medium">
+                          CMP-2024-089: HVAC Abnormal Noise - 2nd Floor
+                        </p>
+                      </div>
+                      <span class="material-symbols-outlined text-outline"
+                        >arrow_drop_down</span
+                      >
+                    </div>
+                    <!-- Search suggestion mockup -->
+                    <div
+                      class="hidden absolute top-full left-0 w-full mt-1 bg-white border border-outline-variant shadow-lg rounded-lg z-10 overflow-hidden"
+                    >
+                      <div
+                        class="p-2 border-b border-outline-variant bg-surface-container-lowest"
+                      >
+                        <input
+                          class="w-full border-none focus:ring-0 text-body-sm"
+                          placeholder="Search other complaints..."
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <!-- Due Date -->
+                  <div class="space-y-2">
+                    <label
+                      class="font-label-caps text-label-caps text-on-surface"
+                      >DUE DATE &amp; PRIORITY</label
+                    >
+                    <div class="relative">
+                      <input
+                        class="w-full p-3 border border-outline-variant rounded-lg bg-white focus:border-primary focus:ring-2 focus:ring-primary/10 transition-all text-body-base"
+                        type="date"
+                        value="2024-05-20"
+                      />
+                      <span
+                        class="absolute right-3 top-3.5 material-symbols-outlined text-outline pointer-events-none text-[20px]"
+                        >calendar_today</span
+                      >
+                    </div>
+                  </div>
+                  <!-- Priority Toggle (Added for context) -->
+                  <div class="space-y-2">
+                    <label
+                      class="font-label-caps text-label-caps text-on-surface"
+                      >EXECUTION PRIORITY</label
+                    >
+                    <div
+                      class="flex bg-surface-container-low p-1 rounded-lg border border-outline-variant"
+                    >
+                      <button
+                        class="flex-1 py-1.5 text-body-sm font-medium rounded bg-white shadow-sm text-on-surface"
+                        type="button"
+                      >
+                        Normal
+                      </button>
+                      <button
+                        class="flex-1 py-1.5 text-body-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors"
+                        type="button"
+                      >
+                        High
+                      </button>
+                      <button
+                        class="flex-1 py-1.5 text-body-sm font-medium text-on-surface-variant hover:text-on-surface transition-colors"
+                        type="button"
+                      >
+                        Critical
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!-- Technician Selection -->
+                <div class="space-y-3">
+                  <label class="font-label-caps text-label-caps text-on-surface"
+                    >ASSIGN TECHNICIAN</label
+                  >
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <!-- Tech 1 -->
+                    <div
+                      class="flex items-center justify-between p-3 border-2 border-primary bg-primary/5 rounded-xl cursor-pointer"
+                    >
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="w-10 h-10 rounded-full bg-slate-200 border border-outline-variant overflow-hidden"
+                        >
+                          <img
+                            alt="John Smith"
+                            class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCDCPTB_rSTJzthwUgUZRZcPHHKUecNWN6-mqefSVZMXeZIbpBmBgjDocpGrgIVva_Njv4y22C8bAAY6AoJ-m0P3YNTdqthSXLsMp1YNY8p7t0su2Z329-qy5ZgBVogOhqaWikHP65R54dpG46eYJxHCYvKc_XHuNYLoDaBjho0kFWUKzkJbT5jgjq3U2ZkuWaVdsNRPLVMGRXcJu6LKMGaKrWdEChF80F4_hNszpcEU5B8DKCdTdmHyJlrL0oRnm9q1nGgSA59nHs"
+                          />
+                        </div>
+                        <div>
+                          <p class="text-body-base font-semibold">John Smith</p>
+                          <div class="flex items-center gap-1.5">
+                            <span
+                              class="w-2 h-2 rounded-full bg-secondary"
+                            ></span>
+                            <span
+                              class="text-[11px] text-secondary font-medium uppercase tracking-wider"
+                              >Available</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                      <span
+                        class="material-symbols-outlined text-primary"
+                        style="font-variation-settings: &quot;FILL&quot; 1"
+                        >check_circle</span
+                      >
+                    </div>
+                    <!-- Tech 2 -->
+                    <div
+                      class="flex items-center justify-between p-3 border border-outline-variant bg-white rounded-xl cursor-pointer hover:border-outline hover:bg-surface-container-low transition-all"
+                    >
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="w-10 h-10 rounded-full bg-slate-200 border border-outline-variant overflow-hidden"
+                        >
+                          <img
+                            alt="Alex Miller"
+                            class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDZC0tHEyDl7AorSGdzs0Gx0zidmCZKICvMemtWgsRwHvKD55HEkAFNhlE38Es2uONBbL3sRbUk3kI_qLsFwvgH3loWZG6AjMl4h0QCmUtqeV_lyPEKzrIEHBGBuC-lSiU8wBkMahoXmiidGGQtU5v58qPsaafDcZKfsOh0q3iLi4p5GvqP5ZlDokrGN6UaCmOich7VTM7R-G2WjDpUB7rCg5VWZSG0zOoLT2OzvK629QL8ALMKvfFZ-2M1eU6MEEL6bpfuPCz1ygY"
+                          />
+                        </div>
+                        <div>
+                          <p class="text-body-base font-semibold">
+                            Alex Miller
+                          </p>
+                          <div class="flex items-center gap-1.5">
+                            <span class="w-2 h-2 rounded-full bg-error"></span>
+                            <span
+                              class="text-[11px] text-error font-medium uppercase tracking-wider"
+                              >On Task</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Tech 3 -->
+                    <div
+                      class="flex items-center justify-between p-3 border border-outline-variant bg-white rounded-xl cursor-pointer hover:border-outline hover:bg-surface-container-low transition-all"
+                    >
+                      <div class="flex items-center gap-3">
+                        <div
+                          class="w-10 h-10 rounded-full bg-slate-200 border border-outline-variant overflow-hidden"
+                        >
+                          <img
+                            alt="Sarah Tan"
+                            class="w-full h-full object-cover"
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuAA9BQ3VhHomoS-Z3QE75m4oeGd78asFmwzOZvCA0aZ43qEbbXj1TsuO6YPtQkrK_JNZy5tFeL0S2uTSqIVRRUGuhOpxggvy7i1ySN1HXJ1MEvHoV8uQ-M9-1M5LypBMuoU2-gmjmfsi22JI-2GT4FYIRVvVOprl2dHSMFPDu7ZrP_mMFiEtUzr3oiXy6ntYiUbX_YAuTbrEWsRYYT-V3EJIeCh8VcgcWOkvustOF8tFRpIZHsYWs_7zfiFCT0Z3PSN45C7DeVIMyY"
+                          />
+                        </div>
+                        <div>
+                          <p class="text-body-base font-semibold">Sarah Tan</p>
+                          <div class="flex items-center gap-1.5">
+                            <span
+                              class="w-2 h-2 rounded-full bg-secondary"
+                            ></span>
+                            <span
+                              class="text-[11px] text-secondary font-medium uppercase tracking-wider"
+                              >Available</span
+                            >
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- Add New/More -->
+                    <div
+                      class="flex items-center justify-center p-3 border border-dashed border-outline-variant bg-surface rounded-xl cursor-pointer hover:bg-white transition-all"
+                    >
+                      <span
+                        class="material-symbols-outlined text-outline-variant mr-2"
+                        >person_add</span
+                      >
+                      <span
+                        class="text-body-sm text-outline-variant font-medium"
+                        >Browse All Team</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <!-- Work Instructions (Rich Text Mockup) -->
+                <div class="space-y-2">
+                  <label class="font-label-caps text-label-caps text-on-surface"
+                    >WORK INSTRUCTIONS</label
+                  >
+                  <div
+                    class="border border-outline-variant rounded-lg overflow-hidden flex flex-col focus-within:border-primary transition-all"
+                  >
+                    <div
+                      class="bg-surface-container-low border-b border-outline-variant p-2 flex items-center gap-4"
+                    >
+                      <span
+                        class="material-symbols-outlined text-outline cursor-pointer hover:text-primary"
+                        >format_bold</span
+                      >
+                      <span
+                        class="material-symbols-outlined text-outline cursor-pointer hover:text-primary"
+                        >format_italic</span
+                      >
+                      <span
+                        class="material-symbols-outlined text-outline cursor-pointer hover:text-primary"
+                        >format_list_bulleted</span
+                      >
+                      <span
+                        class="material-symbols-outlined text-outline cursor-pointer hover:text-primary"
+                        >link</span
+                      >
+                      <div class="h-4 w-[1px] bg-outline-variant"></div>
+                      <span
+                        class="material-symbols-outlined text-outline cursor-pointer hover:text-primary"
+                        >attach_file</span
+                      >
+                    </div>
+                    <textarea
+                      class="p-4 w-full border-none focus:ring-0 text-body-base bg-white"
+                      placeholder="Describe the specific steps, safety requirements, and parts needed for this work order..."
+                      rows="6"
+                    ></textarea>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+          <!-- Right Column: Context Sidebar (4 cols) -->
+          <div class="col-span-12 lg:col-span-4 space-y-gutter">
+            <!-- Related Complaint Summary Card -->
+            <div
+              class="bg-white border border-outline-variant rounded-xl overflow-hidden shadow-sm"
+            >
+              <div class="bg-primary-container p-4">
+                <h3
+                  class="font-label-caps text-label-caps text-white/70 uppercase"
+                >
+                  Complaint Summary
+                </h3>
+              </div>
+              <div class="p-6 space-y-4">
+                <div class="flex justify-between items-start">
+                  <div>
+                    <h4
+                      class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface"
+                    >
+                      HVAC Abnormal Noise
+                    </h4>
+                    <span class="text-body-sm font-data-mono text-outline"
+                      >ID: CMP-2024-089</span
+                    >
+                  </div>
+                  <span
+                    class="px-2 py-1 bg-error-container text-on-error-container text-[11px] font-bold rounded"
+                    >HIGH</span
+                  >
+                </div>
+                <div class="space-y-3 py-4 border-y border-outline-variant/30">
+                  <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-outline text-sm"
+                      >location_on</span
+                    >
+                    <div>
+                      <p
+                        class="text-[11px] font-label-caps text-outline uppercase"
+                      >
+                        Location
+                      </p>
+                      <p class="text-body-sm font-medium">
+                        Main Building, Floor 2, Server Room B
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-outline text-sm"
+                      >precision_manufacturing</span
+                    >
+                    <div>
+                      <p
+                        class="text-[11px] font-label-caps text-outline uppercase"
+                      >
+                        Linked Asset
+                      </p>
+                      <p class="text-body-sm font-medium">
+                        Chiller Unit #04 (Daikin-LX)
+                      </p>
+                    </div>
+                  </div>
+                  <div class="flex items-center gap-3">
+                    <span class="material-symbols-outlined text-outline text-sm"
+                      >person</span
+                    >
+                    <div>
+                      <p
+                        class="text-[11px] font-label-caps text-outline uppercase"
+                      >
+                        Reported By
+                      </p>
+                      <p class="text-body-sm font-medium">
+                        Eko Raharjo (Facility Lead)
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="space-y-2">
+                  <p class="text-[11px] font-label-caps text-outline uppercase">
+                    Original Description
+                  </p>
+                  <p
+                    class="text-body-sm text-on-surface-variant leading-relaxed"
+                  >
+                    "Unit started making a high-pitched grinding sound at 09:15
+                    AM. Thermostat is showing normal readings but the vibration
+                    in the floor is noticeable. Likely a bearing failure or belt
+                    slippage."
+                  </p>
+                </div>
+                <div class="pt-2">
+                  <div
+                    class="rounded-lg overflow-hidden border border-outline-variant aspect-video relative group"
+                  >
+                    <img
+                      class="w-full h-full object-cover"
+                      data-alt="A professional close-up photograph of an industrial HVAC chiller unit in a clean server room. The lighting is cold and clinical, highlighting the metallic surfaces and complex piping. The aesthetic is modern and engineered, emphasizing reliability and technical detail. Tones of blue-gray and metallic silver dominate the palette."
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuC223-KGkimvcgV3Y0eKERgJSqHC42H5zfd7jcVDAyESgtIcKuAFiS9xMIbmz1YRH7dFoX56Xb9AWv_KXp3HIJNMs9NEaTCmpFsKV5jrOWgi3GtSsZenKkVs-yzf1rzlJuUPuTPry4m0XDqhWyc9eqMbmVgpoOYqEUerNzZCO_6UkYYk2qIprUQ2qz2_AhiJqBaoCppuT2S9GOpIMg-V-mWzciWZWFGTnIjkdNHq12qAR4hrAppNi5AWbAbavHgQc5mpZjh3Ia610M"
+                    />
+                    <div
+                      class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center"
+                    >
+                      <span class="material-symbols-outlined text-white"
+                        >zoom_in</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- CAPEX Trigger Alert (System Intelligence) -->
+            <div
+              class="bg-error/5 border border-error/20 rounded-xl p-4 flex gap-4"
+            >
+              <div
+                class="w-10 h-10 rounded-full bg-error/10 flex items-center justify-center text-error flex-shrink-0"
+              >
+                <span
+                  class="material-symbols-outlined"
+                  style="font-variation-settings: &quot;FILL&quot; 1"
+                  >warning</span
+                >
+              </div>
+              <div>
+                <p class="text-error font-bold text-body-base mb-1">
+                  CAPEX ALERT TRIGGERED
+                </p>
+                <p class="text-[12px] text-on-error-container leading-tight">
+                  Estimated repair cost exceeds 70% of asset purchase price.
+                  Consider total replacement (CAPEX) instead of this work order.
+                </p>
+                <button
+                  class="mt-2 text-error text-[11px] font-bold uppercase tracking-widest hover:underline"
+                >
+                  Review Analysis →
+                </button>
+              </div>
+            </div>
+            <!-- Floating Action Sticky for Mobile/Small Screens context -->
+            <div class="pt-4">
+              <button
+                class="w-full h-touch-target bg-primary text-on-primary font-bold rounded-lg flex items-center justify-center gap-3 shadow-lg hover:bg-slate-800 transition-all transform active:scale-[0.98]"
+              >
+                <span class="material-symbols-outlined"
+                  >assignment_turned_in</span
+                >
+                Assign Work Order
+              </button>
+              <p class="text-center mt-3 text-body-sm text-outline">
+                Notification will be sent to John Smith
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <!-- Success Toast Mockup (Hidden by default) -->
+    <div
+      class="fixed bottom-8 right-8 bg-primary-container text-white px-6 py-4 rounded-xl shadow-2xl border border-on-primary-fixed-variant flex items-center gap-4 translate-y-20 opacity-0 transition-all duration-500 z-50"
+      id="success-toast"
+    >
+      <div
+        class="w-8 h-8 rounded-full bg-secondary flex items-center justify-center"
+      >
+        <span class="material-symbols-outlined text-sm">check</span>
+      </div>
+      <div>
+        <p class="font-bold text-body-base">Work Order Created</p>
+        <p class="text-xs text-white/70">
+          Assigned to John Smith. Tracking ID: #WO-9021
+        </p>
+      </div>
+    </div>
+    <script>
+      // Micro-interaction for the primary button
+      const assignBtn = document.querySelector("button.bg-primary");
+      const toast = document.getElementById("success-toast");
+
+      assignBtn.addEventListener("click", () => {
+        assignBtn.innerHTML =
+          '<span class="material-symbols-outlined animate-spin">sync</span> Creating...';
+        setTimeout(() => {
+          assignBtn.innerHTML =
+            '<span class="material-symbols-outlined">check_circle</span> Order Assigned';
+          assignBtn.classList.replace("bg-primary", "bg-secondary");
+
+          // Show toast
+          toast.classList.remove("translate-y-20", "opacity-0");
+
+          setTimeout(() => {
+            toast.classList.add("translate-y-20", "opacity-0");
+          }, 3000);
+        }, 1200);
+      });
+
+      // Simple technician selection toggle
+      const techCards = document.querySelectorAll(
+        ".grid-cols-1.md\\:grid-cols-2 .cursor-pointer",
+      );
+      techCards.forEach((card) => {
+        card.addEventListener("click", () => {
+          techCards.forEach((c) => {
+            c.classList.remove("border-primary", "bg-primary/5", "border-2");
+            c.classList.add("border", "border-outline-variant", "bg-white");
+            const icon = c.querySelector(".text-primary");
+            if (icon) icon.remove();
+          });
+          card.classList.add("border-primary", "bg-primary/5", "border-2");
+          card.classList.remove("border", "border-outline-variant", "bg-white");
+          const check = document.createElement("span");
+          check.className = "material-symbols-outlined text-primary";
+          check.style.fontVariationSettings = "'FILL' 1";
+          check.innerText = "check_circle";
+          card.appendChild(check);
+        });
+      });
+    </script>
+  </body>
+</html>
