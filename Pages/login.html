@@ -1,0 +1,439 @@
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>AssetOS | Kinetic Operational Interface Login</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Google Fonts: Inter & JetBrains Mono -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Material Symbols -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <!-- Theme Configuration -->
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-primary-container": "#7c839b",
+              "on-secondary-container": "#00714d",
+              "surface-container-lowest": "#ffffff",
+              outline: "#76777d",
+              "inverse-primary": "#bec6e0",
+              "surface-container-low": "#eff4ff",
+              "inverse-on-surface": "#eaf1ff",
+              "surface-tint": "#565e74",
+              "on-tertiary-container": "#98805d",
+              "on-secondary-fixed": "#002113",
+              "surface-variant": "#d3e4fe",
+              "secondary-container": "#6cf8bb",
+              "primary-fixed": "#dae2fd",
+              "on-surface-variant": "#45464d",
+              error: "#ba1a1a",
+              "surface-container-high": "#dce9ff",
+              "on-primary": "#ffffff",
+              "on-error-container": "#93000a",
+              tertiary: "#000000",
+              primary: "#000000",
+              "on-background": "#0b1c30",
+              "outline-variant": "#c6c6cd",
+              background: "#f8f9ff",
+              "secondary-fixed": "#6ffbbe",
+              "tertiary-fixed": "#fcdeb5",
+              "surface-dim": "#cbdbf5",
+              surface: "#f8f9ff",
+              "on-tertiary-fixed-variant": "#574425",
+              "surface-container": "#e5eeff",
+              "on-secondary-fixed-variant": "#005236",
+              secondary: "#006c49",
+              "secondary-fixed-dim": "#4edea3",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed-variant": "#3f465c",
+              "tertiary-container": "#271901",
+              "primary-fixed-dim": "#bec6e0",
+              "on-error": "#ffffff",
+              "on-surface": "#0b1c30",
+              "surface-bright": "#f8f9ff",
+              "on-primary-fixed": "#131b2e",
+              "on-secondary": "#ffffff",
+              "surface-container-highest": "#d3e4fe",
+              "primary-container": "#131b2e",
+              "on-tertiary-fixed": "#271901",
+              "inverse-surface": "#213145",
+              "error-container": "#ffdad6",
+              "tertiary-fixed-dim": "#dec29a",
+            },
+            borderRadius: {
+              DEFAULT: "0.125rem",
+              lg: "0.25rem",
+              xl: "0.5rem",
+              full: "0.75rem",
+            },
+            spacing: {
+              "container-margin": "24px",
+              base: "4px",
+              "sidebar-width": "260px",
+              gutter: "16px",
+              "touch-target": "44px",
+            },
+            fontFamily: {
+              "label-caps": ["Inter"],
+              "body-sm": ["Inter"],
+              "headline-lg-mobile": ["Inter"],
+              "data-mono": ["JetBrains Mono"],
+              "body-base": ["Inter"],
+              "title-md": ["Inter"],
+              "headline-lg": ["Inter"],
+              display: ["Inter"],
+            },
+            fontSize: {
+              "label-caps": [
+                "12px",
+                {
+                  lineHeight: "16px",
+                  letterSpacing: "0.05em",
+                  fontWeight: "600",
+                },
+              ],
+              "body-sm": ["13px", { lineHeight: "18px", fontWeight: "400" }],
+              "headline-lg-mobile": [
+                "20px",
+                { lineHeight: "28px", fontWeight: "600" },
+              ],
+              "data-mono": ["13px", { lineHeight: "16px", fontWeight: "500" }],
+              "body-base": ["14px", { lineHeight: "20px", fontWeight: "400" }],
+              "title-md": ["18px", { lineHeight: "26px", fontWeight: "600" }],
+              "headline-lg": [
+                "24px",
+                {
+                  lineHeight: "32px",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "600",
+                },
+              ],
+              display: [
+                "36px",
+                {
+                  lineHeight: "44px",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+        display: inline-block;
+        vertical-align: middle;
+      }
+      .login-bg {
+        background-image:
+          linear-gradient(rgba(11, 28, 48, 0.75), rgba(11, 28, 48, 0.75)),
+          url(https://lh3.googleusercontent.com/aida-public/AB6AXuAeq7yi6ht1Uzfp3oFaG5KU0HdLu09lgqCPYuI9feQ3WAQuqwLG1sXFp2qZVCK2mLk0hRaMJsoLJCmVotsWkWyjsrbtDWKl5mRAUveB7q0uV3yv-W6Bolqk-ldUnBlSojS3lom5JizV15U-BW8TylvKWgTzvtOTfQ-pHsPF10mqZUfBKQ-OOdbtR7hFrGc9ukyO5Xe6Ze2Z2Vzk52gz3sjj6dYgLzepb9nWYvTy1mJG2DKlGdfCGVVQm4CDdduQ5Sr57kL8kOyUqKs);
+        background-size: cover;
+        background-position: center;
+      }
+      .glass-panel {
+        backdrop-filter: blur(8px);
+        background: rgba(255, 255, 255, 0.95);
+      }
+      .active-role-tab {
+        border-bottom: 2px solid #000;
+        color: #000;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-surface font-body-base text-on-surface min-h-screen flex flex-col"
+  >
+    <!-- Main Content Area -->
+    <main
+      class="flex-grow flex items-center justify-center relative login-bg px-4 py-12"
+    >
+      <!-- Login Card -->
+      <div
+        class="w-full max-w-[460px] glass-panel rounded-xl shadow-2xl overflow-hidden border border-outline-variant flex flex-col"
+      >
+        <!-- Branding Header -->
+        <div class="pt-10 pb-6 px-8 flex flex-col items-center text-center">
+          <div class="mb-4">
+            <h1
+              class="font-headline-lg text-headline-lg font-black tracking-tight text-primary"
+            >
+              AssetOS
+            </h1>
+            <p
+              class="font-label-caps text-label-caps text-on-surface-variant mt-1"
+            >
+              Kinetic Operational Interface
+            </p>
+          </div>
+          <h2 class="font-title-md text-title-md text-on-surface mt-4">
+            Secure Portal Login
+          </h2>
+        </div>
+        <!-- Role Selection Tabs -->
+        <div class="flex border-b border-outline-variant px-8">
+          <button
+            class="flex-1 py-4 font-label-caps text-label-caps text-on-surface-variant transition-all hover:text-primary active-role-tab"
+            id="tab-tenant"
+            onclick="switchRole('tenant')"
+          >
+            Tenant
+          </button>
+          <button
+            class="flex-1 py-4 font-label-caps text-label-caps text-on-surface-variant transition-all hover:text-primary"
+            id="tab-staff"
+            onclick="switchRole('staff')"
+          >
+            Staff
+          </button>
+          <button
+            class="flex-1 py-4 font-label-caps text-label-caps text-on-surface-variant transition-all hover:text-primary"
+            id="tab-technician"
+            onclick="switchRole('technician')"
+          >
+            Technician
+          </button>
+        </div>
+        <!-- Login Form -->
+        <form class="p-8 space-y-6" onsubmit="return false;">
+          <!-- Feedback Area (Hidden) -->
+          <div
+            class="bg-surface-container-low p-3 rounded-lg flex items-center gap-3 border border-outline-variant"
+            id="role-indicator"
+          >
+            <span
+              class="material-symbols-outlined text-primary"
+              data-icon="corporate_fare"
+              >corporate_fare</span
+            >
+            <span class="font-body-sm text-body-sm text-on-surface-variant"
+              >Logging in as
+              <strong class="text-on-surface" id="active-role-label"
+                >Tenant</strong
+              ></span
+            >
+          </div>
+          <div class="space-y-4">
+            <!-- Email/Username -->
+            <div class="space-y-1.5">
+              <label
+                class="font-label-caps text-label-caps text-on-surface-variant"
+                for="id-field"
+                >Email or Employee ID</label
+              >
+              <div class="relative group">
+                <span
+                  class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors"
+                  data-icon="person"
+                  >person</span
+                >
+                <input
+                  class="w-full pl-10 pr-4 py-3 bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-base text-body-base"
+                  id="id-field"
+                  placeholder="Enter your credentials"
+                  type="text"
+                />
+              </div>
+            </div>
+            <!-- Password -->
+            <div class="space-y-1.5">
+              <div class="flex justify-between items-end">
+                <label
+                  class="font-label-caps text-label-caps text-on-surface-variant"
+                  for="password-field"
+                  >Password</label
+                >
+                <a
+                  class="font-body-sm text-body-sm text-primary hover:underline transition-all"
+                  href="#"
+                  >Forgot?</a
+                >
+              </div>
+              <div class="relative group">
+                <span
+                  class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline group-focus-within:text-primary transition-colors"
+                  data-icon="lock"
+                  >lock</span
+                >
+                <input
+                  class="w-full pl-10 pr-12 py-3 bg-white border border-outline-variant rounded-lg focus:ring-2 focus:ring-primary focus:border-primary outline-none transition-all font-body-base text-body-base"
+                  id="password-field"
+                  placeholder="••••••••"
+                  type="password"
+                />
+                <button
+                  class="absolute right-3 top-1/2 -translate-y-1/2 text-outline hover:text-on-surface transition-colors"
+                  type="button"
+                >
+                  <span class="material-symbols-outlined" data-icon="visibility"
+                    >visibility</span
+                  >
+                </button>
+              </div>
+            </div>
+          </div>
+          <!-- Remember Me -->
+          <div class="flex items-center gap-2">
+            <input
+              class="w-4 h-4 rounded border-outline-variant text-primary focus:ring-primary"
+              id="remember"
+              type="checkbox"
+            />
+            <label
+              class="font-body-sm text-body-sm text-on-surface-variant cursor-pointer"
+              for="remember"
+              >Keep me signed in for 30 days</label
+            >
+          </div>
+          <!-- Action Button -->
+          <button
+            class="w-full bg-primary text-on-primary font-title-md text-title-md py-4 rounded-lg hover:opacity-90 active:scale-[0.98] transition-all flex items-center justify-center gap-2"
+            type="submit"
+          >
+            Sign In to Dashboard
+            <span class="material-symbols-outlined" data-icon="login"
+              >login</span
+            >
+          </button>
+          <!-- Help Link -->
+          <div
+            class="pt-4 flex justify-center border-t border-outline-variant border-dashed"
+          >
+            <button
+              class="flex items-center gap-2 font-body-sm text-body-sm text-on-surface-variant hover:text-primary transition-all"
+              type="button"
+            >
+              <span
+                class="material-symbols-outlined text-[18px]"
+                data-icon="help_center"
+                >help_center</span
+              >
+              Contact System Support
+            </button>
+          </div>
+        </form>
+      </div>
+      <!-- Hidden Data-Alt for Background -->
+      <div
+        class="hidden"
+        data-alt="A cinematic, high-angle shot of a sophisticated industrial facility interior at night. Glowing server racks and heavy machinery are bathed in a cool, deep blue and slate-toned light palette. Minimalist white geometric overlays and faint digital data streams suggest an advanced operating system interface. The atmosphere is professional, secure, and technologically superior, reflecting a state-of-the-art facility management environment."
+      ></div>
+    </main>
+    <!-- Shared Footer Component -->
+    <footer
+      class="w-full py-8 px-container-margin flex flex-col md:flex-row justify-between items-center gap-4 bg-surface dark:bg-surface-container-lowest border-t border-outline-variant dark:border-outline opacity-80 hover:opacity-100 transition-opacity"
+    >
+      <div class="flex flex-col md:flex-row items-center gap-6">
+        <span
+          class="font-label-caps text-label-caps font-bold text-on-surface-variant"
+          >AssetOS</span
+        >
+        <div class="flex gap-4 md:gap-8 flex-wrap justify-center">
+          <a
+            class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-colors"
+            href="#"
+            >Privacy Policy</a
+          >
+          <a
+            class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-colors"
+            href="#"
+            >Terms of Service</a
+          >
+          <a
+            class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-colors"
+            href="#"
+            >Security Architecture</a
+          >
+          <a
+            class="font-body-sm text-body-sm text-on-surface-variant hover:text-primary underline transition-colors"
+            href="#"
+            >Contact Support</a
+          >
+        </div>
+      </div>
+      <p
+        class="font-body-sm text-body-sm text-on-surface-variant text-center md:text-right"
+      >
+        © 2024 AssetOS Kinetic Operational Interface. All rights reserved.
+      </p>
+    </footer>
+    <script>
+      function switchRole(role) {
+        // Update labels and icons
+        const label = document.getElementById("active-role-label");
+        const icon = document.querySelector(
+          "#role-indicator .material-symbols-outlined",
+        );
+        const tabs = {
+          tenant: document.getElementById("tab-tenant"),
+          staff: document.getElementById("tab-staff"),
+          technician: document.getElementById("tab-technician"),
+        };
+
+        // Reset tabs
+        Object.values(tabs).forEach((tab) =>
+          tab.classList.remove("active-role-tab", "text-primary"),
+        );
+
+        // Set active
+        tabs[role].classList.add("active-role-tab");
+
+        // Map visuals
+        switch (role) {
+          case "tenant":
+            label.textContent = "Tenant";
+            icon.textContent = "corporate_fare";
+            break;
+          case "staff":
+            label.textContent = "Staff / Management";
+            icon.textContent = "admin_panel_settings";
+            break;
+          case "technician":
+            label.textContent = "Service Technician";
+            icon.textContent = "build";
+            break;
+        }
+      }
+
+      // Initialize icon transcription for Material Symbols
+      document.querySelectorAll("[data-icon]").forEach((el) => {
+        const iconName = el.getAttribute("data-icon");
+        const isFill = el.getAttribute("data-weight") === "fill";
+
+        // If it's already a span.material-symbols-outlined, just set content
+        if (el.classList.contains("material-symbols-outlined")) {
+          el.textContent = iconName;
+          if (isFill) el.style.fontVariationSettings = "'FILL' 1";
+        } else {
+          // Should not happen with current structure, but for safety:
+          el.innerHTML =
+            `<span class="material-symbols-outlined" ${isFill ? "style=\"font-variation-settings: 'FILL' 1;\"" : ""}>${iconName}</span>` +
+            el.innerHTML;
+        }
+      });
+    </script>
+  </body>
+</html>
