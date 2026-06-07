@@ -1,0 +1,874 @@
+<!doctype html>
+
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>MallCare Enterprise - Technician Management</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+        background-color: #00132e;
+        color: #d6e3ff;
+      }
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+      .glass-card {
+        background: rgba(11, 55, 109, 0.4);
+        backdrop-filter: blur(15px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .glass-card:hover {
+        background: rgba(11, 55, 109, 0.5);
+        border-color: rgba(0, 212, 216, 0.3);
+        box-shadow: inset 0 0 10px rgba(0, 212, 216, 0.1);
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(0, 212, 216, 0.3);
+        border-radius: 10px;
+      }
+    </style>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              secondary: "#7dd5d6",
+              "on-tertiary-fixed": "#321200",
+              "surface-container-high": "#102a4d",
+              "on-primary-fixed-variant": "#21467d",
+              "secondary-container": "#007476",
+              "surface-dim": "#00132e",
+              "on-secondary-container": "#9ff7f9",
+              "surface-container-low": "#001b3d",
+              "surface-variant": "#1d3559",
+              "surface-tint": "#aac7ff",
+              "on-primary-fixed": "#001b3e",
+              primary: "#aac7ff",
+              "on-tertiary": "#532200",
+              surface: "#00132e",
+              error: "#ffb4ab",
+              "secondary-fixed": "#99f1f3",
+              "outline-variant": "#434750",
+              "primary-fixed-dim": "#aac7ff",
+              success: "#22C55E",
+              "glass-stroke": "rgba(255, 255, 255, 0.1)",
+              "on-secondary-fixed-variant": "#004f51",
+              "tertiary-container": "#5e2800",
+              "on-primary-container": "#80a2de",
+              "on-surface": "#d6e3ff",
+              background: "#00132e",
+              "secondary-dark": "#0D4859",
+              "inverse-primary": "#3c5e97",
+              "primary-fixed": "#d6e3ff",
+              "tertiary-fixed-dim": "#ffb68c",
+              "on-secondary": "#003738",
+              "on-error": "#690005",
+              accent: "#00D4D8",
+              "on-tertiary-container": "#de8e5d",
+              "tertiary-fixed": "#ffdbc9",
+              "text-accent": "#FFB62A",
+              "on-secondary-fixed": "#002020",
+              "surface-bright": "#22395d",
+              "primary-dark": "#082A53",
+              tertiary: "#ffb68c",
+              "secondary-fixed-dim": "#7dd5d6",
+              "text-main": "#F5F7FA",
+              "surface-container-lowest": "#000e25",
+              outline: "#8d909b",
+              "inverse-surface": "#d6e3ff",
+              danger: "#EF4444",
+              "glass-fill": "rgba(11, 55, 109, 0.4)",
+              "primary-container": "#0b376d",
+              "on-error-container": "#ffdad6",
+              "surface-container": "#021f42",
+              "on-tertiary-fixed-variant": "#71370d",
+              "on-surface-variant": "#c3c6d1",
+              "error-container": "#93000a",
+              "on-primary": "#002f64",
+              "on-background": "#d6e3ff",
+              "inverse-on-surface": "#183154",
+              "surface-container-highest": "#1d3559",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              "stack-sm": "8px",
+              gutter: "16px",
+              "stack-md": "16px",
+              "container-padding": "24px",
+              "stack-lg": "32px",
+              base: "4px",
+            },
+            fontFamily: {
+              "body-main": ["Poppins"],
+              "label-md": ["Poppins"],
+              "caption-sm": ["Poppins"],
+              "headline-h1": ["Poppins"],
+              subheading: ["Poppins"],
+              "headline-h2": ["Poppins"],
+            },
+            fontSize: {
+              "body-main": ["16px", { lineHeight: "1.6", fontWeight: "400" }],
+              "label-md": ["14px", { lineHeight: "1.4", fontWeight: "400" }],
+              "caption-sm": [
+                "12px",
+                {
+                  lineHeight: "1.4",
+                  letterSpacing: "0.01em",
+                  fontWeight: "400",
+                },
+              ],
+              "headline-h1": [
+                "32px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.02em",
+                  fontWeight: "700",
+                },
+              ],
+              subheading: ["20px", { lineHeight: "1.4", fontWeight: "500" }],
+              "headline-h2": ["24px", { lineHeight: "1.3", fontWeight: "600" }],
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+  <body
+    class="bg-background selection:bg-accent selection:text-surface overflow-hidden"
+  >
+    <!-- SideNavBar -->
+    <nav id="sidebar"
+      class="fixed left-0 top-0 h-full w-[280px] z-50 bg-surface-container-lowest backdrop-blur-[25px] border-r border-glass-stroke shadow-xl flex flex-col py-stack-lg transform -translate-x-full transition-transform duration-300"
+    >
+      <div class="px-6 mb-10">
+        <h1 class="font-headline-h1 text-headline-h1 text-primary">
+          Facility Hub
+        </h1>
+        <p class="text-on-surface-variant font-label-md text-label-md">
+          North Wing Sector
+        </p>
+      </div>
+      <div class="flex-1 space-y-1">
+        <a
+          class="text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-glass-fill hover:text-main transition-all group"
+          href="Damage_Report.html"
+        >
+          <span class="material-symbols-outlined text-secondary"
+            >report_problem</span
+          >
+          <span class="font-label-md text-label-md">Damage Report</span>
+        </a>
+        <a
+          class="text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-glass-fill hover:text-main transition-all"
+          href="Damage_list.html"
+        >
+          <span class="material-symbols-outlined text-secondary"
+            >confirmation_number</span
+          >
+          <span class="font-label-md text-label-md">Damage List</span>
+        </a>
+        <a
+          class="text-on-surface-variant px-4 py-3 flex items-center gap-3 hover:bg-glass-fill hover:text-main transition-all"
+          href="work_Order.html"
+        >
+          <span class="material-symbols-outlined text-secondary"
+            >assignment</span
+          >
+          <span class="font-label-md text-label-md">Work Orders</span>
+        </a>
+        <!-- Active State -->
+        <a
+          class="bg-primary-container/40 text-accent border-l-4 border-accent px-4 py-3 flex items-center gap-3"
+          href="Technician_Management.html"
+        >
+          <span
+            class="material-symbols-outlined"
+            style="font-variation-settings: &quot;FILL&quot; 1"
+            >engineering</span
+          >
+          <span class="font-label-md text-label-md font-semibold"
+            >Technicians</span
+          >
+        </a>
+      </div>
+      <div class="px-4 mt-auto space-y-4">
+        <div class="pt-4 border-t border-glass-stroke space-y-1">
+          <a
+            class="text-on-surface-variant px-4 py-2 flex items-center gap-3 hover:text-main"
+            href="Setting.html"
+          >
+            <span class="material-symbols-outlined">settings</span>
+            <span class="text-label-md">Settings</span>
+          </a>
+          <a
+            class="text-on-surface-variant px-4 py-2 flex items-center gap-3 hover:text-danger"
+            href="#"
+          >
+            <span class="material-symbols-outlined">logout</span>
+            <span class="text-label-md">Logout</span>
+          </a>
+        </div>
+      </div>
+    </nav>
+<div id='sidebarOverlay' class='fixed inset-0 bg-black/50 z-40 hidden'></div>
+    <!-- TopAppBar -->
+    <header
+      class="fixed top-0 left-0 right-0 z-40 bg-glass-fill backdrop-blur-[15px] border-b border-glass-stroke shadow-sm h-16 flex items-center justify-between px-gutter"
+      
+    >
+      <div class="flex items-center gap-4 md:gap-6">
+    <button id="hamburgerBtn" class="p-2 rounded-lg hover:bg-white/10 transition-colors">
+      <span class="material-symbols-outlined text-primary">menu</span>
+    </button>
+        <span
+          class="font-headline-h2 text-headline-h2 text-accent tracking-tight"
+          >MallCare Enterprise</span
+        >
+        <div class="relative group">
+          <span
+            class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant"
+            >search</span
+          >
+          <input
+            class="bg-primary-dark border border-glass-stroke rounded-full pl-10 pr-4 py-1.5 w-40 md:w-64 focus:outline-none focus:border-accent text-label-md transition-all"
+            placeholder="Search technicians, IDs, or skills..."
+            type="text"
+          />
+        </div>
+      </div>
+      <div class="flex items-center gap-2 md:gap-4">
+        <button
+          class="p-2 rounded-full hover:bg-white/10 transition-colors cursor-pointer active:scale-95 text-on-surface-variant"
+        >
+          <span class="material-symbols-outlined">notifications</span>
+        </button>
+        <button
+          class="p-2 rounded-full hover:bg-white/10 transition-colors cursor-pointer active:scale-95 text-on-surface-variant"
+        >
+          <span class="material-symbols-outlined">help</span>
+        </button>
+      </div>
+    </header>
+    <!-- Main Content -->
+    <main class="pt-16 h-screen overflow-y-auto custom-scrollbar bg-background">
+      <div class="p-container-padding space-y-stack-lg max-w-[1600px] mx-auto">
+        <!-- Page Header & Filters -->
+        <div
+          class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4"
+        >
+          <div>
+            <h2 class="font-headline-h1 text-headline-h1 text-on-surface">
+              Technician Directory
+            </h2>
+            <p class="text-on-surface-variant font-body-main text-body-main">
+              Manage and monitor 24 active maintenance personnel.
+            </p>
+          </div>
+          <div
+            class="flex items-center gap-3 bg-primary-dark/50 p-1.5 rounded-xl border border-glass-stroke"
+          >
+            <button
+              class="px-4 py-2 rounded-lg bg-accent text-primary-dark font-semibold flex items-center gap-2 transition-all"
+              id="cardViewBtn"
+            >
+              <span
+                class="material-symbols-outlined"
+                style="font-variation-settings: &quot;FILL&quot; 1"
+                >grid_view</span
+              >
+              <span class="text-label-md">Card View</span>
+            </button>
+            <button
+              class="px-4 py-2 rounded-lg text-on-surface-variant hover:text-on-surface flex items-center gap-2 transition-all"
+              id="tableViewBtn"
+            >
+              <span class="material-symbols-outlined">table_chart</span>
+              <span class="text-label-md">Table View</span>
+            </button>
+          </div>
+        </div>
+        <!-- Filters & Skill Matrix Layout -->
+        <div class="grid grid-cols-1 xl:grid-cols-12 gap-gutter">
+          <!-- Left: Skill Matrix (Bento style) -->
+          <section
+            class="xl:col-span-4 glass-card rounded-xl p-6 flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-6">
+              <h3 class="font-subheading text-subheading text-primary">
+                Skill Proficiency Matrix
+              </h3>
+              <span class="material-symbols-outlined text-accent"
+                >query_stats</span
+              >
+            </div>
+            <div class="flex-1 space-y-4">
+              <!-- Skill Progress Indicators -->
+              <div>
+                <div
+                  class="flex justify-between text-caption-sm mb-1 uppercase tracking-wider text-on-surface-variant"
+                >
+                  <span>HVAC Systems</span>
+                  <span class="text-accent">92% Coverage</span>
+                </div>
+                <div
+                  class="h-2 w-full bg-primary-dark rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-gradient-to-r from-secondary to-accent w-[92%]"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div
+                  class="flex justify-between text-caption-sm mb-1 uppercase tracking-wider text-on-surface-variant"
+                >
+                  <span>Electrical Engineering</span>
+                  <span class="text-accent">78% Coverage</span>
+                </div>
+                <div
+                  class="h-2 w-full bg-primary-dark rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-gradient-to-r from-secondary to-accent w-[78%]"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div
+                  class="flex justify-between text-caption-sm mb-1 uppercase tracking-wider text-on-surface-variant"
+                >
+                  <span>Elevator &amp; Escalator</span>
+                  <span class="text-accent">65% Coverage</span>
+                </div>
+                <div
+                  class="h-2 w-full bg-primary-dark rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-gradient-to-r from-secondary to-accent w-[65%]"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div
+                  class="flex justify-between text-caption-sm mb-1 uppercase tracking-wider text-on-surface-variant"
+                >
+                  <span>Fire Safety &amp; Alarms</span>
+                  <span class="text-accent">100% Coverage</span>
+                </div>
+                <div
+                  class="h-2 w-full bg-primary-dark rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-gradient-to-r from-secondary to-success w-[100%] shadow-[0_0_10px_rgba(34,197,94,0.3)]"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div
+                  class="flex justify-between text-caption-sm mb-1 uppercase tracking-wider text-on-surface-variant"
+                >
+                  <span>Plumbing Systems</span>
+                  <span class="text-accent">84% Coverage</span>
+                </div>
+                <div
+                  class="h-2 w-full bg-primary-dark rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-gradient-to-r from-secondary to-accent w-[84%]"
+                  ></div>
+                </div>
+              </div>
+              <div>
+                <div
+                  class="flex justify-between text-caption-sm mb-1 uppercase tracking-wider text-on-surface-variant"
+                >
+                  <span>CCTV &amp; Security</span>
+                  <span class="text-accent">45% Coverage</span>
+                </div>
+                <div
+                  class="h-2 w-full bg-primary-dark rounded-full overflow-hidden"
+                >
+                  <div
+                    class="h-full bg-gradient-to-r from-secondary to-accent w-[45%]"
+                  ></div>
+                </div>
+              </div>
+            </div>
+            <button
+              class="mt-8 py-2 border border-glass-stroke rounded-lg text-caption-sm font-semibold uppercase tracking-widest hover:bg-accent/10 hover:text-accent transition-all"
+            >
+              Generate Deployment Report
+            </button>
+          </section>
+          <!-- Right: Directory Area -->
+          <section class="xl:col-span-8 space-y-gutter">
+            <!-- Directory Controls -->
+            <div
+              class="flex flex-wrap gap-4 items-center justify-between glass-card p-4 rounded-xl"
+            >
+              <div class="flex gap-3">
+                <select
+                  class="bg-primary-dark border border-glass-stroke rounded-lg px-4 py-2 text-label-md focus:outline-none focus:border-accent"
+                >
+                  <option>Expertise: All</option>
+                  <option>HVAC</option>
+                  <option>Electrical</option>
+                  <option>Plumbing</option>
+                </select>
+                <select
+                  class="bg-primary-dark border border-glass-stroke rounded-lg px-4 py-2 text-label-md focus:outline-none focus:border-accent"
+                >
+                  <option>Status: Available</option>
+                  <option>Status: Busy</option>
+                  <option>Status: Offline</option>
+                </select>
+              </div>
+              <div class="text-caption-sm text-on-surface-variant">
+                Showing <span class="text-accent font-bold">24</span> active
+                profiles
+              </div>
+            </div>
+            <!-- Cards Grid -->
+            <div
+              class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-3 gap-gutter"
+              id="directoryContainer"
+            >
+              <!-- Technician Card 1 -->
+              <div
+                class="glass-card rounded-xl p-5 flex flex-col group animate-fade-in"
+              >
+                <div class="flex justify-between items-start mb-4">
+                  <div class="relative">
+                    <img
+                      class="h-16 w-16 rounded-full object-cover border-2 border-accent"
+                      data-alt="A close-up portrait of a male technician in his late 30s wearing a grey high-visibility technician vest over a dark blue uniform. He is in a brightly lit industrial maintenance room with electrical panels in the background. The aesthetic is clean, professional, and high-contrast enterprise style with soft teal lighting accents."
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuDngINhfsq9nCyYj15GgHqg4QVpeDmTlIT-hRsNu_1Yp1EJlH1exdCcwF2auEnPCsmjB7AIxnDximEVc-iW1olo9AZI_Uz8C3N-3fbbe6bOK6jq4J68TVGOmxeDViplU2YoB_1NSAzoff6gTM3qBWHcj7LFthhruDYdBkeDAG6po3l-lWwuFgojkzsL1oiHKAgTt5SPLHUliSZzTjI4vM651o7Olzfsx_nmOLGUnnfeMZNqbsExUAx86WfkhjTSKSRqb3U3WZtvQtY"
+                    />
+                    <span
+                      class="absolute bottom-0 right-0 h-4 w-4 bg-success rounded-full border-2 border-primary-dark shadow-[0_0_8px_rgba(34,197,94,0.6)]"
+                    ></span>
+                  </div>
+                  <div class="text-right">
+                    <span
+                      class="bg-success/10 text-success text-[10px] px-2 py-0.5 rounded-full border border-success/20 uppercase font-bold tracking-tighter"
+                      >Available</span
+                    >
+                    <p class="text-caption-sm text-on-surface-variant mt-1">
+                      ID: MC-0482
+                    </p>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <h4
+                    class="font-subheading text-subheading text-text-main group-hover:text-accent transition-colors"
+                  >
+                    Marcus Thorne
+                  </h4>
+                  <p
+                    class="text-caption-sm text-secondary uppercase font-semibold"
+                  >
+                    Lead Electrical Engineer
+                  </p>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                  <div
+                    class="bg-primary-dark/30 p-2 rounded-lg border border-glass-stroke"
+                  >
+                    <p class="text-[10px] text-on-surface-variant uppercase">
+                      Certification
+                    </p>
+                    <p class="text-caption-sm font-medium">IEEE Master</p>
+                  </div>
+                  <div
+                    class="bg-primary-dark/30 p-2 rounded-lg border border-glass-stroke"
+                  >
+                    <p class="text-[10px] text-on-surface-variant uppercase">
+                      Active Task
+                    </p>
+                    <p class="text-caption-sm font-medium">None (Standby)</p>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-2 mb-6">
+                  <div
+                    class="flex items-center gap-2 text-caption-sm text-on-surface-variant"
+                  >
+                    <span class="material-symbols-outlined text-[16px]"
+                      >call</span
+                    >
+                    +1 (555) 012-4822
+                  </div>
+                  <div
+                    class="flex items-center gap-2 text-caption-sm text-on-surface-variant truncate"
+                  >
+                    <span class="material-symbols-outlined text-[16px]"
+                      >mail</span
+                    >
+                    m.thorne@mallcare.sys
+                  </div>
+                </div>
+                <button
+                  class="mt-auto w-full py-2 bg-glass-fill border border-glass-stroke rounded-lg text-label-md font-semibold hover:bg-accent hover:text-primary-dark transition-all"
+                >
+                  View Profile Details
+                </button>
+              </div>
+              <!-- Technician Card 2 -->
+              <div class="glass-card rounded-xl p-5 flex flex-col group">
+                <div class="flex justify-between items-start mb-4">
+                  <div class="relative">
+                    <img
+                      class="h-16 w-16 rounded-full object-cover border-2 border-secondary"
+                      data-alt="A portrait of a focused female technician wearing a specialized communication headset and a dark grey jumpsuit with the company logo. She is standing in a modern control room with blurred digital screens showing schematics in the background. Cinematic lighting with subtle cyan and deep blue tones, reflecting a professional enterprise environment."
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuCJfeOt8INfso-FbWGT22j-gAUl1kb0XPE0Z6olVpIZUVCQRCGkBfhO-KYuJLUq_qmSW7eLKzKjN-EK8hqyIbYbga-DUjhnHng6oCRpnFYOpK6pOxanC8ztmN5dpK0O75ARxst10BPD2FOQTbHP4CPHVJxD_LIFNEH9BjHlpomrHiCXF1WJB0-HyBv2mWA-9v8O3s4cFyMWFMVgQ-AB2nBz8Px9oHGdwkYCKqO7gL7RxkZJRSEwokK3WlX02FH5B_KzAgA4GWd5uf4"
+                    />
+                    <span
+                      class="absolute bottom-0 right-0 h-4 w-4 bg-text-accent rounded-full border-2 border-primary-dark shadow-[0_0_8px_rgba(255,182,42,0.6)]"
+                    ></span>
+                  </div>
+                  <div class="text-right">
+                    <span
+                      class="bg-text-accent/10 text-text-accent text-[10px] px-2 py-0.5 rounded-full border border-text-accent/20 uppercase font-bold tracking-tighter"
+                      >On-Duty</span
+                    >
+                    <p class="text-caption-sm text-on-surface-variant mt-1">
+                      ID: MC-0591
+                    </p>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <h4
+                    class="font-subheading text-subheading text-text-main group-hover:text-accent transition-colors"
+                  >
+                    Elena Rodriguez
+                  </h4>
+                  <p
+                    class="text-caption-sm text-secondary uppercase font-semibold"
+                  >
+                    HVAC Specialist
+                  </p>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                  <div
+                    class="bg-primary-dark/30 p-2 rounded-lg border border-glass-stroke"
+                  >
+                    <p class="text-[10px] text-on-surface-variant uppercase">
+                      Certification
+                    </p>
+                    <p class="text-caption-sm font-medium">ASHRAE Level II</p>
+                  </div>
+                  <div
+                    class="bg-primary-dark/30 p-2 rounded-lg border border-glass-stroke"
+                  >
+                    <p class="text-[10px] text-on-surface-variant uppercase">
+                      Active Task
+                    </p>
+                    <p class="text-caption-sm font-medium truncate">
+                      Unit 4-B Repair
+                    </p>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-2 mb-6">
+                  <div
+                    class="flex items-center gap-2 text-caption-sm text-on-surface-variant"
+                  >
+                    <span class="material-symbols-outlined text-[16px]"
+                      >call</span
+                    >
+                    +1 (555) 012-5910
+                  </div>
+                  <div
+                    class="flex items-center gap-2 text-caption-sm text-on-surface-variant truncate"
+                  >
+                    <span class="material-symbols-outlined text-[16px]"
+                      >mail</span
+                    >
+                    e.rodriguez@mallcare.sys
+                  </div>
+                </div>
+                <button
+                  class="mt-auto w-full py-2 bg-glass-fill border border-glass-stroke rounded-lg text-label-md font-semibold hover:bg-accent hover:text-primary-dark transition-all"
+                >
+                  View Profile Details
+                </button>
+              </div>
+              <!-- Technician Card 3 -->
+              <div class="glass-card rounded-xl p-5 flex flex-col group">
+                <div class="flex justify-between items-start mb-4">
+                  <div class="relative">
+                    <img
+                      class="h-16 w-16 rounded-full object-cover border-2 border-secondary"
+                      data-alt="A portrait of a male senior technician with a friendly expression, wearing a navy blue service uniform and carrying a digital tablet. He is in a clean, modern corridor with architectural glass. High-end enterprise lighting with cool white and blue hues, creating a sharp and sophisticated look for a facility management system."
+                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_Ri3bkH3DFXaRtd9ohvk6C50cbGKyLA9slON3YaevPzzzyvl8bOAthIbO1lx9UFCyP1nl3GsACRi0kJ7DT0F-ZUrDxUXUQjK7IR0VAvyCcfAug2m7qjkyki3_pzmdkcYnJPUutmgFzM-Xgrwd0Wa8EXpBhLybvHScYaW9nkgMsaGyYNPYXoBSw7wm3I83zO-u6GyU6C3zYH9kYzNvo_2KOBaJCV_NZrHdSIb9DEC3hWixealL43hEOL9CRri9x5wxKMPHHlJeemo"
+                    />
+                    <span
+                      class="absolute bottom-0 right-0 h-4 w-4 bg-success rounded-full border-2 border-primary-dark"
+                    ></span>
+                  </div>
+                  <div class="text-right">
+                    <span
+                      class="bg-success/10 text-success text-[10px] px-2 py-0.5 rounded-full border border-success/20 uppercase font-bold tracking-tighter"
+                      >Available</span
+                    >
+                    <p class="text-caption-sm text-on-surface-variant mt-1">
+                      ID: MC-1120
+                    </p>
+                  </div>
+                </div>
+                <div class="mb-4">
+                  <h4
+                    class="font-subheading text-subheading text-text-main group-hover:text-accent transition-colors"
+                  >
+                    David Chen
+                  </h4>
+                  <p
+                    class="text-caption-sm text-secondary uppercase font-semibold"
+                  >
+                    Safety &amp; Fire Systems
+                  </p>
+                </div>
+                <div class="grid grid-cols-2 gap-3 mb-4">
+                  <div
+                    class="bg-primary-dark/30 p-2 rounded-lg border border-glass-stroke"
+                  >
+                    <p class="text-[10px] text-on-surface-variant uppercase">
+                      Certification
+                    </p>
+                    <p class="text-caption-sm font-medium">NFPA Expert</p>
+                  </div>
+                  <div
+                    class="bg-primary-dark/30 p-2 rounded-lg border border-glass-stroke"
+                  >
+                    <p class="text-[10px] text-on-surface-variant uppercase">
+                      Active Task
+                    </p>
+                    <p class="text-caption-sm font-medium">None (Standby)</p>
+                  </div>
+                </div>
+                <div class="flex flex-col gap-2 mb-6">
+                  <div
+                    class="flex items-center gap-2 text-caption-sm text-on-surface-variant"
+                  >
+                    <span class="material-symbols-outlined text-[16px]"
+                      >call</span
+                    >
+                    +1 (555) 012-1120
+                  </div>
+                  <div
+                    class="flex items-center gap-2 text-caption-sm text-on-surface-variant truncate"
+                  >
+                    <span class="material-symbols-outlined text-[16px]"
+                      >mail</span
+                    >
+                    d.chen@mallcare.sys
+                  </div>
+                </div>
+                <button
+                  class="mt-auto w-full py-2 bg-glass-fill border border-glass-stroke rounded-lg text-label-md font-semibold hover:bg-accent hover:text-primary-dark transition-all"
+                >
+                  View Profile Details
+                </button>
+              </div>
+            </div>
+            <!-- Table View (Hidden by default) -->
+            <div
+              class="hidden glass-card rounded-xl overflow-hidden"
+              id="tableView"
+            >
+              <div class="overflow-x-auto"><table class="w-full text-left border-collapse min-w-[800px]">
+                <thead>
+                  <tr class="bg-primary-dark/50 border-b border-glass-stroke">
+                    <th
+                      class="px-6 py-4 font-caption-sm text-caption-sm uppercase tracking-widest text-secondary"
+                    >
+                      Technician
+                    </th>
+                    <th
+                      class="px-6 py-4 font-caption-sm text-caption-sm uppercase tracking-widest text-secondary"
+                    >
+                      Expertise
+                    </th>
+                    <th
+                      class="px-6 py-4 font-caption-sm text-caption-sm uppercase tracking-widest text-secondary"
+                    >
+                      Status
+                    </th>
+                    <th
+                      class="px-6 py-4 font-caption-sm text-caption-sm uppercase tracking-widest text-secondary"
+                    >
+                      Active Task
+                    </th>
+                    <th
+                      class="px-6 py-4 font-caption-sm text-caption-sm uppercase tracking-widest text-secondary text-right"
+                    >
+                      Action
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-white/5">
+                  <tr class="hover:bg-white/5 transition-colors">
+                    <td class="px-6 py-4 flex items-center gap-3">
+                      <div
+                        class="h-8 w-8 rounded-full bg-accent/20 flex items-center justify-center text-accent text-xs font-bold border border-accent/40"
+                      >
+                        MT
+                      </div>
+                      <div>
+                        <p class="text-label-md font-medium">Marcus Thorne</p>
+                        <p class="text-[10px] text-on-surface-variant">
+                          ID: MC-0482
+                        </p>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 text-label-md">Electrical</td>
+                    <td class="px-6 py-4">
+                      <span
+                        class="inline-flex items-center gap-1.5 text-success text-[10px] font-bold uppercase"
+                      >
+                        <span class="h-2 w-2 rounded-full bg-success"></span>
+                        Available
+                      </span>
+                    </td>
+                    <td class="px-6 py-4 text-label-md text-on-surface-variant">
+                      —
+                    </td>
+                    <td class="px-6 py-4 text-right">
+                      <button
+                        class="text-accent hover:underline text-caption-sm"
+                      >
+                        Details
+                      </button>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-white/5 transition-colors">
+                    <td class="px-6 py-4 flex items-center gap-3">
+                      <div
+                        class="h-8 w-8 rounded-full bg-secondary/20 flex items-center justify-center text-secondary text-xs font-bold border border-secondary/40"
+                      >
+                        ER
+                      </div>
+                      <div>
+                        <p class="text-label-md font-medium">Elena Rodriguez</p>
+                        <p class="text-[10px] text-on-surface-variant">
+                          ID: MC-0591
+                        </p>
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 text-label-md">HVAC</td>
+                    <td class="px-6 py-4">
+                      <span
+                        class="inline-flex items-center gap-1.5 text-text-accent text-[10px] font-bold uppercase"
+                      >
+                        <span
+                          class="h-2 w-2 rounded-full bg-text-accent animate-pulse"
+                        ></span>
+                        On-Duty
+                      </span>
+                    </td>
+                    <td class="px-6 py-4 text-label-md">Unit 4-B Repair</td>
+                    <td class="px-6 py-4 text-right">
+                      <button
+                        class="text-accent hover:underline text-caption-sm"
+                      >
+                        Details
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table></div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </main>
+    <!-- FAB (Suppressed on this page as per requirements, but showing if needed elsewhere) -->
+    <script>
+      // View Toggle Logic
+      const cardViewBtn = document.getElementById("cardViewBtn");
+      const tableViewBtn = document.getElementById("tableViewBtn");
+      const directoryContainer = document.getElementById("directoryContainer");
+      const tableView = document.getElementById("tableView");
+
+      cardViewBtn.addEventListener("click", () => {
+        directoryContainer.classList.remove("hidden");
+        tableView.classList.add("hidden");
+
+        cardViewBtn.classList.add("bg-accent", "text-primary-dark");
+        cardViewBtn.classList.remove("text-on-surface-variant");
+
+        tableViewBtn.classList.remove("bg-accent", "text-primary-dark");
+        tableViewBtn.classList.add("text-on-surface-variant");
+      });
+
+      tableViewBtn.addEventListener("click", () => {
+        directoryContainer.classList.add("hidden");
+        tableView.classList.remove("hidden");
+
+        tableViewBtn.classList.add("bg-accent", "text-primary-dark");
+        tableViewBtn.classList.remove("text-on-surface-variant");
+
+        cardViewBtn.classList.remove("bg-accent", "text-primary-dark");
+        cardViewBtn.classList.add("text-on-surface-variant");
+      });
+
+      // Simple animation for cards on load
+      document.addEventListener("DOMContentLoaded", () => {
+        const cards = document.querySelectorAll(".glass-card");
+        cards.forEach((card, index) => {
+          card.style.opacity = "0";
+          card.style.transform = "translateY(10px)";
+          setTimeout(() => {
+            card.style.transition = "all 0.4s ease-out";
+            card.style.opacity = "1";
+            card.style.transform = "translateY(0)";
+          }, index * 100);
+        });
+      });
+    
+const sidebar = document.getElementById("sidebar");
+const sidebarOverlay = document.getElementById("sidebarOverlay");
+const hamburgerBtn = document.getElementById("hamburgerBtn");
+
+hamburgerBtn?.addEventListener("click", () => {
+  sidebar.classList.remove("-translate-x-full");
+  sidebarOverlay.classList.remove("hidden");
+});
+
+sidebarOverlay?.addEventListener("click", () => {
+  sidebar.classList.add("-translate-x-full");
+  sidebarOverlay.classList.add("hidden");
+});
+
+</script>
+  </body>
+</html>
